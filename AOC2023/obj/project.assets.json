@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\ConsoleApp1\\ConsoleApp1.csproj",
-      "projectName": "ConsoleApp1",
-      "projectPath": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\AOC2023.csproj",
+      "projectName": "AOC2023",
+      "projectPath": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\AOC2023.csproj",
       "packagesPath": "C:\\Users\\hbenzar\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\ConsoleApp1\\obj\\",
+      "outputPath": "C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\hbenzar\\AppData\\Roaming\\NuGet\\NuGet.Config",

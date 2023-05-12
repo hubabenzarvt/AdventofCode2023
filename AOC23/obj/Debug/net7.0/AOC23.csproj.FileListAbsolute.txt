@@ -1,0 +1,15 @@
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\bin\Debug\net7.0\AOC23.exe
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\bin\Debug\net7.0\AOC23.deps.json
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\bin\Debug\net7.0\AOC23.runtimeconfig.json
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\bin\Debug\net7.0\AOC23.dll
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\bin\Debug\net7.0\AOC23.pdb
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.csproj.AssemblyReference.cache
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.AssemblyInfoInputs.cache
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.AssemblyInfo.cs
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.csproj.CoreCompileInputs.cache
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.dll
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\refint\AOC23.dll
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.pdb
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\AOC23.genruntimeconfig.cache
+C:\Users\hbenzar\Documents\GitHub\AdventofCode2023\AOC23\obj\Debug\net7.0\ref\AOC23.dll

@@ -2,7 +2,6 @@
 
 public class CalorieCalculator
 {
-    private int previousScore;
     private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day1\\input.txt").ReadToEnd();
     private string[] lines = inputPath.Split(Environment.NewLine);
 
@@ -15,6 +14,7 @@ public class CalorieCalculator
     
     private void ReadLinesPart1()
     {
+        int prevHighest = 0;
         int total = 0;
 
         foreach (string line in lines)
@@ -27,12 +27,12 @@ public class CalorieCalculator
             {
                 total = 0;
             }
-            if (total >= previousScore)
+            if (total >= prevHighest)
             {
-                previousScore = total;
+                prevHighest = total;
             }
         }
-        Console.WriteLine($"Part 1: {previousScore}");
+        Console.WriteLine($"Part 1: {prevHighest}");
     }
 
     private void ReadLinesPart2()

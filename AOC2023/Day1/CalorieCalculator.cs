@@ -1,4 +1,6 @@
-﻿namespace ConsoleApp2.Day1;
+﻿using AOC2023.Day2;
+
+namespace ConsoleApp2.Day1;
 
 public class CalorieCalculator
 {
@@ -10,6 +12,10 @@ public class CalorieCalculator
         var calculator = new CalorieCalculator();
         calculator.ReadLinesPart1();
         calculator.ReadLinesPart2();
+        
+        var rockPaperScissor = new RockPaperScissor();
+        rockPaperScissor.Part1();
+        rockPaperScissor.Part2();
     }
     
     private void ReadLinesPart1()

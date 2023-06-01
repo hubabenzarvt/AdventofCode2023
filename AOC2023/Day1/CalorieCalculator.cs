@@ -1,24 +1,11 @@
-﻿using AOC2023.Day2;
-
-namespace ConsoleApp2.Day1;
+﻿namespace AOC2023.Day1;
 
 public class CalorieCalculator
 {
     private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day1\\input.txt").ReadToEnd();
     private string[] lines = inputPath.Split(Environment.NewLine);
 
-    public static void Main()
-    {
-        var calculator = new CalorieCalculator();
-        calculator.ReadLinesPart1();
-        calculator.ReadLinesPart2();
-        
-        var rockPaperScissor = new RockPaperScissor();
-        rockPaperScissor.Part1();
-        rockPaperScissor.Part2();
-    }
-    
-    private void ReadLinesPart1()
+    public void ReadLinesPart1()
     {
         int prevHighest = 0;
         int total = 0;
@@ -41,7 +28,7 @@ public class CalorieCalculator
         Console.WriteLine($"Part 1: {prevHighest}");
     }
 
-    private void ReadLinesPart2()
+    public void ReadLinesPart2()
     {
         List<int> allOptions = new List<int>();
         int total = 0;

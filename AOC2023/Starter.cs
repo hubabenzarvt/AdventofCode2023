@@ -1,6 +1,7 @@
 ﻿using AOC2023.Day1;
 using AOC2023.Day2;
 using AOC2023.Day3;
+using AOC2023.Day4;
 
 namespace AOC2023;
 
@@ -22,5 +23,10 @@ public class Starter
         var rucksackReorganizer = new RucksackReorganizer();
         rucksackReorganizer.Part1();
         rucksackReorganizer.Part2();
+        
+        Console.WriteLine("\nDay4");
+        var overlappingElves = new OverlappingElves();
+        overlappingElves.Part1();
+        overlappingElves.Part2();
     }
 }

@@ -21,5 +21,6 @@ public class Starter
         Console.WriteLine("\nDay3");
         var rucksackReorganizer = new RucksackReorganizer();
         rucksackReorganizer.Part1();
+        rucksackReorganizer.Part2();
     }
 }

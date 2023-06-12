@@ -4,13 +4,7 @@ public class OverlappingElves
 {
     private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day4\\input.txt").ReadToEnd();
     private static string[] lines = inputPath.Split(Environment.NewLine);
-
     
-    /// <summary>
-    /// Split each line by the comma into head and tail
-    /// Make a list of contained numbers where the number before and after also contain the one in between for both head and tail
-    /// Compare head and tail and see if one contains the other completely (intersect)
-    /// </summary>
     public void Part1()
     {
         var totalScore = 0;

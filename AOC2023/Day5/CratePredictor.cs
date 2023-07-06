@@ -5,7 +5,7 @@ public class CratePredictor
     private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day5\\input.txt").ReadToEnd();
     private static string[] lines = inputPath.Split(Environment.NewLine);
 
-    public void Part1()
+    public string CrateLogic(bool reverse)
     {
         var combinations = new List<string>();
         var instructions = new List<string>();
@@ -58,8 +58,6 @@ public class CratePredictor
             currentColumn = 0;
         }
         
-        Console.WriteLine($"Found {crateStacks} combinations");
-
         //Move crates
         //Characters that isn't empty between move and from is the amount to move
         //Characters that aren't empty between from and to is where we move from
@@ -78,18 +76,23 @@ public class CratePredictor
             var from = Int32.Parse(instruction.Substring(fromIndex + fromLength, toIndex - fromIndex - fromLength)) -1;
             var to = Int32.Parse(instruction.Substring(toIndex + toLength)) -1;
 
-            var cratesToMove = crateStacks[from].TakeLast(move).Reverse().ToList();
+            var cratesToMove = reverse ? crateStacks[from].TakeLast(move).Reverse().ToList() : crateStacks[from].TakeLast(move).ToList();
             crateStacks[from].RemoveRange(crateStacks[from].Count - move, move);
             crateStacks[to].AddRange(cratesToMove);
         }
 
 
         //Get last element of each index in crateStacks and assign it to output
-        var output = crateStacks.Aggregate("", (current, stack) => current + stack.Last());
-        Console.WriteLine($"Part 1 combination is: {output}");
+        return crateStacks.Aggregate("", (current, stack) => current + stack.Last());
     }
-    
+
+    public void Part1()
+    {
+        Console.WriteLine($"Part 1 combination is: {CrateLogic(true)}");
+    }
+
     public void Part2()
     {
+        Console.WriteLine($"Part 2 combination is: {CrateLogic(false)}");
     }
 }

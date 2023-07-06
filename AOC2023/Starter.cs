@@ -33,6 +33,6 @@ public class Starter
         Console.WriteLine("\nDay5");
         var cratePredictor = new CratePredictor();
         cratePredictor.Part1();
-        //cratePredictor.Part2();
+        cratePredictor.Part2();
     }
 }

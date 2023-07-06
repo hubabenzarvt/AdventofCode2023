@@ -6,15 +6,11 @@ public class SignalCatcher
     
     public string SignalDecoder(int packetStart)
     {
-        for (var i = 0; i < inputPath.Length; i++)
-        {
-            if (i == inputPath.Length - packetStart)
-                return "Ran out of string";
-            
+        for (var i = 0; i < inputPath.Length - packetStart; i++)
             if (!inputPath.Substring(i, packetStart).GroupBy(x => x).Any(g => g.Count() > 1))
                 return $"The outcome is at position : {i + packetStart}";
-        }
-        return "No outcome found";
+        
+        return "No outcome found! Ran out of strings.";
     }
     
     public void Part1()

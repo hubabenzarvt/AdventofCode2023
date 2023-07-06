@@ -3,6 +3,7 @@ using AOC2023.Day2;
 using AOC2023.Day3;
 using AOC2023.Day4;
 using AOC2023.Day5;
+using AOC2023.Day6;
 
 namespace AOC2023;
 
@@ -34,5 +35,10 @@ public class Starter
         var cratePredictor = new CratePredictor();
         cratePredictor.Part1();
         cratePredictor.Part2();
+        
+        Console.WriteLine("\nDay6");
+        var signalCatcher = new SignalCatcher();
+        signalCatcher.Part1();
+        signalCatcher.Part2();
     }
 }

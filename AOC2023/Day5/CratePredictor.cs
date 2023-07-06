@@ -89,10 +89,7 @@ public class CratePredictor
         Console.WriteLine($"Part 1 combination is: {output}");
     }
     
-    //A method that gets the length of a string and returns the length of the string
-    //If the string is empty it returns 0
-    private static int GetLength(string s)
+    public void Part2()
     {
-        return string.IsNullOrEmpty(s) ? 0 : s.Length;
     }
 }

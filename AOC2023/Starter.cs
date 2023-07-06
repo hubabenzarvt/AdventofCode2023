@@ -2,6 +2,7 @@
 using AOC2023.Day2;
 using AOC2023.Day3;
 using AOC2023.Day4;
+using AOC2023.Day5;
 
 namespace AOC2023;
 
@@ -28,5 +29,10 @@ public class Starter
         var overlappingElves = new OverlappingElves();
         overlappingElves.Part1();
         overlappingElves.Part2();
+        
+        Console.WriteLine("\nDay5");
+        var cratePredictor = new CratePredictor();
+        cratePredictor.Part1();
+        //cratePredictor.Part2();
     }
 }

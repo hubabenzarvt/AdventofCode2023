@@ -4,6 +4,7 @@ using AOC2023.Day3;
 using AOC2023.Day4;
 using AOC2023.Day5;
 using AOC2023.Day6;
+using AOC2023.Day7;
 
 namespace AOC2023;
 
@@ -40,5 +41,10 @@ public class Starter
         var signalCatcher = new SignalCatcher();
         signalCatcher.Part1();
         signalCatcher.Part2();
+        
+        Console.WriteLine("\nDay7");
+        var cmdParser = new CommandLineParser();
+        cmdParser.Part1();
+        cmdParser.Part2();
     }
 }

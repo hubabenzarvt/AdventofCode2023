@@ -5,6 +5,7 @@ using AOC2023.Day4;
 using AOC2023.Day5;
 using AOC2023.Day6;
 using AOC2023.Day7;
+using AOC2023.Day8;
 
 namespace AOC2023;
 
@@ -12,7 +13,7 @@ public class Starter
 {
     public static void Main()
     {
-        Console.WriteLine("Day1");
+        /*Console.WriteLine("Day1");
         var calculator = new CalorieCalculator();
         calculator.ReadLinesPart1();
         calculator.ReadLinesPart2();
@@ -45,6 +46,11 @@ public class Starter
         Console.WriteLine("\nDay7");
         var cmdParser = new CommandLineParser();
         cmdParser.Part1();
-        cmdParser.Part2();
+        cmdParser.Part2();*/
+        
+        Console.WriteLine("\nDay8");
+        var housePlanner = new TreeHousePlanner();
+        housePlanner.Part1();
+        housePlanner.Part2();
     }
 }

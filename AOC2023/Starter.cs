@@ -13,7 +13,7 @@ public class Starter
 {
     public static void Main()
     {
-        /*Console.WriteLine("Day1");
+        Console.WriteLine("Day1");
         var calculator = new CalorieCalculator();
         calculator.ReadLinesPart1();
         calculator.ReadLinesPart2();
@@ -46,7 +46,7 @@ public class Starter
         Console.WriteLine("\nDay7");
         var cmdParser = new CommandLineParser();
         cmdParser.Part1();
-        cmdParser.Part2();*/
+        cmdParser.Part2();
         
         Console.WriteLine("\nDay8");
         var housePlanner = new TreeHousePlanner();

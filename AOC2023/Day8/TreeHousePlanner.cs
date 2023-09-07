@@ -1,147 +1,171 @@
-﻿namespace AOC2023.Day8;
+﻿using System.Numerics;
+
+namespace AOC2023.Day8;
 
 public class TreeHousePlanner
 {
-    private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day8\\input.txt").ReadToEnd();
+    private static string inputPath = File.OpenText("C:\\Users\\hbenzar\\Documents\\GitHub\\AdventofCode2023\\AOC2023\\Day8\\example.txt").ReadToEnd();
     private static string[] lines = inputPath.Split(Environment.NewLine);
-    private static List<List<Tree>> forest = new List<List<Tree>>();
-
-    private enum Direction
-    {
-        North,
-        South,
-        East,
-        West
-    }
+    private List<List<Tree>> forest = new List<List<Tree>>();
 
     private class Tree
     {
         public int Height { get; init; }
-        public bool North { get; set; } //Top
-        public bool South { get; set; } //Bottom
-        public bool East { get; set; } //Left
-        public bool West { get; set; } //Right
-    }
-
-    private List<List<Tree>> ViewChecker(int row, int column, Direction direction, List<List<Tree>> requestedForest)
-    {
-        var viewingAngle = ArboristViewingAngle(direction, requestedForest);
-        for (var i = row; i < viewingAngle.Count; i++)
-        {
-            var tallestTree = 0;
-            for (var j = column; j < viewingAngle[i].Count; j++)
-            {
-                var tree = viewingAngle[i][j];
-                switch (direction)
-                {
-                    case Direction.North:
-                        if (tallestTree < tree.Height || i == 0)
-                            tree.North = true;
-                        break;
-                    case Direction.South:
-                        if (tallestTree < tree.Height || i == 0)
-                            tree.South = true;
-                        break;
-                    case Direction.East:
-                        if (tallestTree < tree.Height || i == 0)
-                            tree.East = true;
-                        break;
-                    case Direction.West:
-                        if (tallestTree < tree.Height || i == 0)
-                            tree.West = true;
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(direction), direction, null);
-                }
-
-                if (tree.Height > tallestTree)
-                {
-                    tallestTree = tree.Height;
-                }
-            }
-        }
-        return viewingAngle;
+        
+        public int NorthTotal { get; set; }
+        public int EastTotal { get; set; }
+        public int SouthTotal { get; set; }
+        public int WestTotal { get; set; }
     }
     
-    private List<List<Tree>> ArboristViewingAngle(Direction rotateAmount, List<List<Tree>> newForest) //array rotator
+    private void CheckNorth(int row, int column)
     {
-        for (var i = 0; i < Array.IndexOf(Enum.GetValues(rotateAmount.GetType()), rotateAmount); i++)
+        var tallestTree = -1;
+        for (var i = row; i >= 0; i--)
         {
-            newForest = newForest.SelectMany(a => a.Select((b, pos) => new {a, b, i = pos}))
-                .GroupBy(x => x.i % newForest.Count)
-                .Select(x => x.Select(y => y.b).Reverse().ToList())
-                .ToList();
+            var tree = forest[i][column];
+            if (tallestTree < tree.Height)
+            {
+                tree.NorthTotal++;
+            }
+            if (tree.Height > tallestTree)
+            {
+                tallestTree = tree.Height;
+            }
         }
-        return newForest;
+    }
+    
+    private void CheckEast(int row, int column)
+    {
+        var tallestTree = -1;
+        for (var i = column; i < forest[row].Count; i++)
+        {
+            var tree = forest[row][i];
+            if (tallestTree < tree.Height)
+            {
+                tree.EastTotal++;
+            }
+            if (tree.Height > tallestTree)
+            {
+                tallestTree = tree.Height;
+            }
+        }
+    }
+    
+    private void CheckSouth(int row, int column)
+    {
+        var tallestTree = -1;
+        for (var i = row; i < forest.Count; i++)
+        {
+            var tree = forest[i][column];
+            if (tallestTree < tree.Height)
+            {
+                tree.SouthTotal++;
+            }
+            if (tree.Height > tallestTree)
+            {
+                tallestTree = tree.Height;
+            }
+        }
+    }
+    
+    private void CheckWest(int row, int column)
+    {
+        var tallestTree = -1;
+        for (var i = column; i >= 0; i--)
+        {
+            var tree = forest[row][i];
+            if (tallestTree < tree.Height)
+            {
+                tree.WestTotal++;
+            }
+            if (tree.Height > tallestTree)
+            {
+                tallestTree = tree.Height;
+            }
+        }
     }
 
-    private List<List<Tree>> CreateForestMap()
+    private void CreateForestMap()
     {
-        var createdForest = new List<List<Tree>>();
+        forest.Clear();
         for (var index = 0; index < lines.Length; index++)
         {
-            createdForest.Add(new List<Tree>());
+            forest.Add(new List<Tree>());
             foreach (var treeHeight in lines[index].Where(treeHeight => treeHeight is >= '0' and <= '9'))
             {
-                createdForest[index].Add(new Tree {Height = int.Parse(treeHeight.ToString())});
+                forest[index].Add(new Tree {Height = int.Parse(treeHeight.ToString())});
             }
         }
-        return createdForest;
-    }
-
-    private List<List<Tree>> OverallVisibilityChecker(int row, int column, List<List<Tree>> forest)
-    {
-        List<List<Tree>> forestNorth = ViewChecker(row, column, Direction.North, forest);
-        List<List<Tree>> forestSouth = ViewChecker(row, column, Direction.South, forest);
-        List<List<Tree>> forestEast = ViewChecker(row, column, Direction.East, forest);
-        List<List<Tree>> forestWest = ViewChecker(row, column, Direction.West, forest);
-        return MergeForest(forestNorth, forestSouth, forestEast, forestWest);
     }
     
-    private List<List<Tree>> MergeForest(params List<List<Tree>>[] forests)
+    private void CheckSurroundings(int row, int column)
     {
-        if (forests.Length == 0) 
-            return new List<List<Tree>>();
-        
-        List<List<Tree>> mergedForsts = new List<List<Tree>>();
-        foreach (var forest in forests)
+        CheckNorth(row, column);
+        CheckEast(row, column);
+        CheckSouth(row, column);
+        CheckWest(row, column);
+    }
+    
+    private void ResetForest()
+    {
+        foreach (var treeRow in forest)
         {
-            for (var i = 0; i < forest.Count; i++)
+            foreach (var tree in treeRow)
             {
-                for (var j = 0; j < forest[i].Count; j++)
-                {
-                    var tree = forest[i][j];
-                    if (tree.North || tree.South || tree.East || tree.West)
-                    {
-                        if (mergedForsts.Count <= i)
-                            mergedForsts.Add(new List<Tree>());
-                        
-                        mergedForsts[i].Add(tree);
-                    }
-                }
+                tree.NorthTotal = 0;
+                tree.EastTotal = 0;
+                tree.SouthTotal = 0;
+                tree.WestTotal = 0;
             }
         }
-
-        return mergedForsts;
     }
     
     public void Part1()
     {
-        forest = CreateForestMap();
-        var total = OverallVisibilityChecker(0, 0, forest).Sum(treeRow => treeRow.Count(tree => tree.North || tree.South || tree.East || tree.West));
+        CreateForestMap();
+        for (int i = 0; i < forest[0].Count; i++)
+        {
+            CheckSouth(0, i);
+        }
+        for (int j = 0; j < forest.Count; j++)
+        {
+            CheckEast(j, 0);
+        }
+        for (int i = forest[0].Count - 1; i >= 0; i--)
+        {
+            CheckNorth(forest.Count - 1, i);
+        }
+        for (int j = forest.Count - 1; j >= 0; j--)
+        {
+            CheckWest(j, forest[0].Count - 1);
+        }
+        
+        var total = forest.Sum(treeRow => treeRow.Count(tree => tree.NorthTotal > 0 || tree.EastTotal > 0 || tree.SouthTotal > 0 || tree.WestTotal > 0));
+
         Console.WriteLine($"Total Part 1 is {total}");
     }
 
     //Check forwards backwards up and down for each tree and count the distance they can see from that tree
     public void Part2()
     {
-        /*CreateForestMap();
+        int spectacularRating = 0;
+        Vector2 position = new Vector2();
+        CreateForestMap();
         for (var i = 0; i < forest.Count; i++)
         {
-            for (var j = 0; i < forest[i].Count; i++)
+            for (var j = 0; j < forest[i].Count; j++)
             {
-                OverallVisibilityChecker(i, j);
+                CheckSurroundings(i, j);
+                var totalSpec = forest[i][j].NorthTotal * forest[i][j].EastTotal * forest[i][j].SouthTotal * forest[i][j].WestTotal;
+                if (totalSpec > spectacularRating)
+                {
+                    spectacularRating = totalSpec;
+                    position = new Vector2(i, j);
+                }
+                ResetForest();
             }
-        }*/
+        }
+        Console.WriteLine($"Spectacularity Part 2 is {spectacularRating} at position ({position.X+1}, {position.Y+1})");
     }
 }

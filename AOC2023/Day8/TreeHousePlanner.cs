@@ -16,73 +16,105 @@ public class TreeHousePlanner
         public int EastTotal { get; set; }
         public int SouthTotal { get; set; }
         public int WestTotal { get; set; }
+        
+        public int SpecularScore => NorthTotal * EastTotal * SouthTotal * WestTotal;
     }
     
-    private void CheckNorth(int row, int column)
+    private void CheckNorth(int row, int column, bool recurse)
     {
         var tallestTree = -1;
-        for (var i = row; i >= 0; i--)
-        {
-            var tree = forest[i][column];
-            if (tallestTree < tree.Height)
-            {
-                tree.NorthTotal++;
-            }
-            if (tree.Height > tallestTree)
-            {
-                tallestTree = tree.Height;
-            }
-        }
-    }
-    
-    private void CheckEast(int row, int column)
-    {
-        var tallestTree = -1;
-        for (var i = column; i < forest[row].Count; i++)
-        {
-            var tree = forest[row][i];
-            if (tallestTree < tree.Height)
-            {
-                tree.EastTotal++;
-            }
-            if (tree.Height > tallestTree)
-            {
-                tallestTree = tree.Height;
-            }
-        }
-    }
-    
-    private void CheckSouth(int row, int column)
-    {
-        var tallestTree = -1;
-        for (var i = row; i < forest.Count; i++)
-        {
-            var tree = forest[i][column];
-            if (tallestTree < tree.Height)
-            {
-                tree.SouthTotal++;
-            }
-            if (tree.Height > tallestTree)
-            {
-                tallestTree = tree.Height;
-            }
-        }
-    }
-    
-    private void CheckWest(int row, int column)
-    {
-        var tallestTree = -1;
+
         for (var i = column; i >= 0; i--)
         {
-            var tree = forest[row][i];
+            var tree = forest[i][row];
+            var counter = 0;
+            
             if (tallestTree < tree.Height)
             {
-                tree.WestTotal++;
-            }
-            if (tree.Height > tallestTree)
-            {
+                counter++;
                 tallestTree = tree.Height;
+                
+                if (recurse && row > 0)
+                {
+                    CheckNorth(row - 1, column, true);
+                }
             }
+
+            tree.NorthTotal += counter;
+        }
+    }
+    
+    private void CheckEast(int row, int column, bool recurse)
+    {
+        var tallestTree = -1;
+
+        for (var i = row; i < forest[column].Count; i++)
+        {
+            var tree = forest[column][i];
+            var counter = 0;
+
+            if (tallestTree < tree.Height)
+            {
+                counter++;
+                tallestTree = tree.Height;
+                
+                if (recurse && column < forest.Count - 1)
+                {
+                    CheckEast(row + 1, column, true);
+                }
+            }
+
+            tree.EastTotal += counter;
+        }
+    }
+    
+    private void CheckSouth(int row, int column, bool recurse)
+    {
+        var tallestTree = -1;
+        
+        for (var i = column; i < forest.Count; i++)
+        {
+            var tree = forest[i][row];
+            var counter = 0;
+
+            if (tallestTree < tree.Height)
+            {
+                counter++;
+                tallestTree = tree.Height;
+                
+                if (recurse && row < forest[i].Count - 1)
+                {
+                    CheckSouth(row, column + 1, true);
+                }
+
+            }
+
+            tree.SouthTotal += counter;
+        }
+
+        
+    }
+    
+    private void CheckWest(int row, int column, bool recurse)
+    {
+        var tallestTree = -1;
+        
+        for (var i = row; i >= 0; i--)
+        {
+            var tree = forest[column][i];
+            var counter = 0;
+
+            if (tallestTree < tree.Height)
+            {
+                counter++;
+                tallestTree = tree.Height;
+                if (recurse && column > 0)
+                {
+                    CheckWest(row, column - 1, true);
+                }
+            }
+            
+            tree.WestTotal += counter;
         }
     }
 
@@ -98,15 +130,7 @@ public class TreeHousePlanner
             }
         }
     }
-    
-    private void CheckSurroundings(int row, int column)
-    {
-        CheckNorth(row, column);
-        CheckEast(row, column);
-        CheckSouth(row, column);
-        CheckWest(row, column);
-    }
-    
+
     private void ResetForest()
     {
         foreach (var treeRow in forest)
@@ -121,25 +145,30 @@ public class TreeHousePlanner
         }
     }
     
-    public void Part1()
+    private void CheckSurrounding(int row, int column, bool recurse = false)
     {
-        CreateForestMap();
-        for (int i = 0; i < forest[0].Count; i++)
+        for (int i = row; i < forest[0].Count; i++)
         {
-            CheckSouth(0, i);
+            CheckSouth(i, 0, recurse);
+        }
+        for (int j = column; j < forest.Count; j++)
+        {
+            CheckEast(0, j, recurse);
+        }
+        for (int i = 0; i < forest[row].Count; i++)
+        {
+            CheckNorth(i, forest.Count - 1, recurse);
         }
         for (int j = 0; j < forest.Count; j++)
         {
-            CheckEast(j, 0);
+            CheckWest(forest[column].Count - 1, j, recurse);
         }
-        for (int i = forest[0].Count - 1; i >= 0; i--)
-        {
-            CheckNorth(forest.Count - 1, i);
-        }
-        for (int j = forest.Count - 1; j >= 0; j--)
-        {
-            CheckWest(j, forest[0].Count - 1);
-        }
+    }
+    
+    public void Part1()
+    {
+        CreateForestMap();
+        CheckSurrounding(0,0);
         
         var total = forest.Sum(treeRow => treeRow.Count(tree => tree.NorthTotal > 0 || tree.EastTotal > 0 || tree.SouthTotal > 0 || tree.WestTotal > 0));
 
@@ -151,21 +180,29 @@ public class TreeHousePlanner
     {
         int spectacularRating = 0;
         Vector2 position = new Vector2();
+        Vector2 currposition = new Vector2();
         CreateForestMap();
-        for (var i = 0; i < forest.Count; i++)
+        CheckSurrounding(0, 0, true);
+
+        for (var row = 0; row < forest.Count; row++)
         {
-            for (var j = 0; j < forest[i].Count; j++)
+            for (var column = 0; column < forest[row].Count; column++)
             {
-                CheckSurroundings(i, j);
-                var totalSpec = forest[i][j].NorthTotal * forest[i][j].EastTotal * forest[i][j].SouthTotal * forest[i][j].WestTotal;
-                if (totalSpec > spectacularRating)
+                if (forest[row][column].SpecularScore > spectacularRating)
                 {
-                    spectacularRating = totalSpec;
-                    position = new Vector2(i, j);
+                    spectacularRating = forest[row][column].SpecularScore;
+                    position = new Vector2(row, column);
                 }
-                ResetForest();
+                
+                currposition = new Vector2(row, column);
+                Console.WriteLine($"The Totals for ({currposition.X}, {currposition.X}) were " +
+                                  $"N:{forest[(int) currposition.X][(int) currposition.Y].NorthTotal}, " +
+                                  $"E:{forest[(int) currposition.X][(int) currposition.Y].EastTotal}, " +
+                                  $"S:{forest[(int) currposition.X][(int) currposition.Y].SouthTotal}, " +
+                                  $"W:{forest[(int) currposition.X][(int) currposition.Y].WestTotal}, " +
+                                  $"H:{forest[(int) currposition.X][(int) currposition.Y].Height}");
             }
         }
-        Console.WriteLine($"Spectacularity Part 2 is {spectacularRating} at position ({position.X+1}, {position.Y+1})");
+        Console.WriteLine($"Spectacularity Part 2 is {spectacularRating} at position ({position.X}, {position.Y}), which is {forest[(int) position.Y][(int) position.X].Height} high");
     }
 }

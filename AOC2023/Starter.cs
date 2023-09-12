@@ -6,6 +6,7 @@ using AOC2023.Day5;
 using AOC2023.Day6;
 using AOC2023.Day7;
 using AOC2023.Day8;
+using AOC2023.Day9;
 
 namespace AOC2023;
 
@@ -51,5 +52,9 @@ public class Starter
         Console.WriteLine("\nDay8");
         var housePlanner = new TreeHousePlanner();
         housePlanner.Part1Part2();
+        
+        Console.WriteLine("\nDay9");
+        var ropePhysics = new RopePhysics();
+        ropePhysics.Part1();
     }
 }

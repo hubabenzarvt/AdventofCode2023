@@ -50,7 +50,6 @@ public class Starter
         
         Console.WriteLine("\nDay8");
         var housePlanner = new TreeHousePlanner();
-        housePlanner.Part1();
-        housePlanner.Part2();
+        housePlanner.Part1Part2();
     }
 }

@@ -100,6 +100,5 @@ public class RopePhysics
     {
         Console.WriteLine($"Part 1 Tail Count {SimulateRope(2).Last().Value.Distinct().Count()}");
         Console.WriteLine($"Part 2 Tail Count {SimulateRope(10).Last().Value.Distinct().Count()}");
-
     }
 }

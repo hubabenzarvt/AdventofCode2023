@@ -56,5 +56,6 @@ public class Starter
         Console.WriteLine("\nDay9");
         var ropePhysics = new RopePhysics();
         ropePhysics.Part1();
+        ropePhysics.Part2();
     }
 }

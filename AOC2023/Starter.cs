@@ -1,4 +1,5 @@
 ﻿using AOC2023.Day1;
+using AOC2023.Day10;
 using AOC2023.Day2;
 using AOC2023.Day3;
 using AOC2023.Day4;
@@ -56,5 +57,9 @@ public class Starter
         Console.WriteLine("\nDay9");
         var ropePhysics = new RopePhysics();
         ropePhysics.Part1Part2();
+        
+        Console.WriteLine("\nDay10");
+        var cathodeRayTube = new CathodeRayTube();
+        cathodeRayTube.Part1();
     }
 }

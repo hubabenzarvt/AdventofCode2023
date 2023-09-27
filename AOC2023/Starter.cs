@@ -60,6 +60,6 @@ public class Starter
         
         Console.WriteLine("\nDay10");
         var cathodeRayTube = new CathodeRayTube();
-        cathodeRayTube.Part1();
+        cathodeRayTube.Part1Part2();
     }
 }
